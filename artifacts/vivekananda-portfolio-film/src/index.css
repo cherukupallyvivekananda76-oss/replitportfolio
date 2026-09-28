@@ -1,0 +1,92 @@
+@import 'tailwindcss';
+
+:root {
+  --film-base: #101b1a;
+  --film-surface: #172523;
+  --film-surface-2: #1d302c;
+  --film-cream: #eff5ec;
+  --film-muted: #aabbb0;
+  --film-acid: #c9f36a;
+  --film-aqua: #7dd9c2;
+  --color-primary: var(--film-acid);
+  --color-secondary: var(--film-aqua);
+  --color-accent: var(--film-acid);
+  --color-bg-light: var(--film-cream);
+  --color-bg-dark: var(--film-base);
+  --color-bg-muted: var(--film-surface);
+  --color-text-primary: var(--film-cream);
+  --color-text-secondary: var(--film-muted);
+  --color-text-muted: #71887c;
+  --color-text-inverse: var(--film-base);
+  --color-success: var(--film-aqua);
+  --color-warning: #ff9c72;
+  --color-error: #ff7777;
+  --font-display: 'Manrope', sans-serif;
+  --font-body: 'Manrope', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+
+@theme inline {
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-accent: var(--color-accent);
+  --color-bg-light: var(--color-bg-light);
+  --color-bg-dark: var(--color-bg-dark);
+  --color-bg-muted: var(--color-bg-muted);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
+  --color-text-inverse: var(--color-text-inverse);
+  --color-success: var(--color-success);
+  --color-warning: var(--color-warning);
+  --color-error: var(--color-error);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+body {
+  font-family: var(--font-body);
+  margin: 0;
+  background: var(--film-base);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.video-media-frame {
+  box-sizing: border-box;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.video-media-frame > :is(img, video) {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+}
+
+.video-media-frame[data-media-fit='contain'] > :is(img, video) {
+  object-fit: contain;
+}
+
+.video-media-frame[data-media-position='top'] > :is(img, video) {
+  object-position: top;
+}
+
+.video-media-frame[data-media-position='right'] > :is(img, video) {
+  object-position: right;
+}
+
+.video-media-frame[data-media-position='bottom'] > :is(img, video) {
+  object-position: bottom;
+}
+
+.video-media-frame[data-media-position='left'] > :is(img, video) {
+  object-position: left;
+}

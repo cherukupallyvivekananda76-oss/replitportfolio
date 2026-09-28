@@ -1,0 +1,29 @@
+kind = "video"
+videoAspectRatio = "4:5"
+previewPath = "/vivekananda-portfolio-film/"
+title = "Vivekananda | Evidence in Motion"
+description = "A 4:5 animated introduction to Vivekananda Cherukupally's AI Generalist portfolio, using its evaluation-lab visual identity and verified project evidence."
+version = "1.0.0"
+id = "artifacts/vivekananda-portfolio-film"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/vivekananda-portfolio-film/" ]
+localPort = 20000
+
+[services.development]
+run = "pnpm --filter @workspace/vivekananda-portfolio-film run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/vivekananda-portfolio-film", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/vivekananda-portfolio-film/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20000"
+BASE_PATH = "/vivekananda-portfolio-film/"

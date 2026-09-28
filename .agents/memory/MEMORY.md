@@ -2,3 +2,4 @@
 - [Ambassador grounding boundary](ambassador-grounding.md) — The model selects evidence topics, not factual prose; label direct matching when model access is limited.
 - [Public resume release gate](public-resume-release-gate.md) — Keep PDF text extraction aligned with resume generation; unsupported or empty extraction must block release.
 - [Portfolio image OCR](portfolio-image-ocr.md) — Normalize image sequences to multipage TIFF; direct Tesseract input can silently inspect only the first frame.
+- [Video audio verification](video-audio-verification.md) — A served soundtrack and audio element do not prove audible playback; browser autoplay and export contexts differ.

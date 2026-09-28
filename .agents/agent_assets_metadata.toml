@@ -14,3 +14,10 @@ mtime_ms = 1790606786805
 storage_uri = "gcs://replit-rams-assets-sisko/rams/assets/repl:697f00c3-25a5-4336-ae17-5861c7bc8980/05556e88-eab9-4c62-9002-6e3503cc86f7/47d61413-a2ec-446a-9a6e-5e676b4aa147"
 storage_version_token = "1790606936524174"
 content_type = "application/pdf"
+
+[[outputs]]
+id = "zYagfBtUJGcTzdKh4qD-m"
+uri = "file://artifacts/vivekananda-portfolio-film/public/audio/bg_music.mp3"
+type = "audio"
+title = "portfolio film instrumental"
+description = "Generated music: Minimal cinematic electronic instrumental for a 25-second editorial AI portfolio film. 100 BPM measured pulse, dry analog synth bass, warm glassy synth keys, restrained percussion an…"
