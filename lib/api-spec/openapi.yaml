@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: ambassador
+    description: Source-grounded portfolio guide
 paths:
   /healthz:
     get:
@@ -24,6 +26,31 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /ambassador/ask:
+    post:
+      operationId: askAmbassador
+      tags: [ambassador]
+      summary: Ask the portfolio ambassador
+      description: Returns a verified answer and links to its on-page sources, or an explicit unsupported-claim fallback.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AmbassadorQuestion"
+      responses:
+        "200":
+          description: Answer grounded in approved profile facts
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AmbassadorAnswer"
+        "400":
+          description: Invalid question
+        "429":
+          description: Rate limit exceeded
+        "503":
+          description: The ambassador is temporarily unavailable
 components:
   schemas:
     HealthStatus:
@@ -33,4 +60,32 @@ components:
           type: string
       required:
         - status
+    AmbassadorQuestion:
+      type: object
+      properties:
+        question:
+          type: string
+          minLength: 1
+          maxLength: 300
+      required: [question]
+    AmbassadorCitation:
+      type: object
+      properties:
+        label:
+          type: string
+        href:
+          type: string
+      required: [label, href]
+    AmbassadorAnswer:
+      type: object
+      properties:
+        answer:
+          type: string
+        citations:
+          type: array
+          items:
+            $ref: "#/components/schemas/AmbassadorCitation"
+        supported:
+          type: boolean
+      required: [answer, citations, supported]
 

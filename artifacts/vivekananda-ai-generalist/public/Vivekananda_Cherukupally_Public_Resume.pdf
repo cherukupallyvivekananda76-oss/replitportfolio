@@ -1,0 +1,81 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Length 3926 >>
+stream
+0.97 0.98 0.96 rg 0 0 595 842 re f
+0.06 0.11 0.1 rg 0 681 595 161 re f
+0.79 0.95 0.42 rg 40 807 36 3 re f
+0.94 0.97 0.94 rg BT /F2 23 Tf 40 777 Td (VIVEKANANDA CHERUKUPALLY) Tj ET
+0.79 0.95 0.42 rg BT /F2 10 Tf 40 753 Td (AI GENERALIST  /  ML ENGINEER \(CONTRACT\)) Tj ET
+0.79 0.86 0.81 rg BT /F1 9 Tf 40 724 Td (Public profile: www.linkedin.com/in/vivekananda-cherukupally-396731379) Tj ET
+0.79 0.86 0.81 rg BT /F1 9 Tf 40 708 Td (Selected work: github.com/cherukupallyvivekananda76-oss) Tj ET
+0.77 0.82 0.77 rg 40 670 515 0.7 re f
+0.13 0.42 0.32 rg BT /F2 9 Tf 40 654 Td (PROFILE) Tj ET
+0.13 0.2 0.18 rg BT /F1 9 Tf 40 631 Td (Builds practical AI tools, evaluates outputs, and improves the workflows around them.) Tj ET
+0.77 0.82 0.77 rg 40 618 515 0.7 re f
+0.13 0.42 0.32 rg BT /F2 9 Tf 40 602 Td (EXPERIENCE) Tj ET
+0.13 0.2 0.18 rg BT /F2 11 Tf 40 578 Td (ML Engineer \(Contract\)  -  Handshake AI) Tj ET
+0.32 0.46 0.40 rg BT /F1 8 Tf 432 578 Td (JUL 2026 - PRESENT) Tj ET
+0.13 0.2 0.18 rg BT /F1 9 Tf 40 560 Td (Evaluates AI outputs for accuracy, relevance, consistency, and usability.) Tj ET
+0.13 0.2 0.18 rg BT /F1 9 Tf 40 545 Td (Iterates prompt-based systems with feedback; builds and tests automation pipelines.) Tj ET
+0.13 0.2 0.18 rg BT /F1 9 Tf 40 530 Td (Troubleshoots environments; works with Git/GitHub, Docker, and REST APIs.) Tj ET
+0.77 0.82 0.77 rg 40 515 515 0.7 re f
+0.13 0.42 0.32 rg BT /F2 9 Tf 40 499 Td (SELECTED PROJECT EVIDENCE) Tj ET
+0.13 0.2 0.18 rg BT /F2 10 Tf 40 476 Td (AI Accountant Agent) Tj ET
+0.32 0.46 0.40 rg BT /F1 8 Tf 345 476 Td (IN PROGRESS  /  MAR 2026 - PRESENT) Tj ET
+0.13 0.2 0.18 rg BT /F1 9 Tf 40 460 Td (Developing an AI agent for financial tasks; compares outputs with hand calculations.) Tj ET
+0.13 0.2 0.18 rg BT /F2 10 Tf 40 440 Td (Pinterest Affiliate Automation App) Tj ET
+0.32 0.46 0.40 rg BT /F1 8 Tf 410 440 Td (BUILT  /  MAY-JUN 2026) Tj ET
+0.13 0.2 0.18 rg BT /F1 9 Tf 40 424 Td (Generates titles, descriptions and keywords; checks niche match and content relevance.) Tj ET
+0.13 0.2 0.18 rg BT /F2 10 Tf 40 404 Td (AI Tutor) Tj ET
+0.32 0.46 0.40 rg BT /F1 8 Tf 414 404 Td (PROTOTYPE  /  SEP 2025) Tj ET
+0.13 0.2 0.18 rg BT /F1 9 Tf 40 388 Td (A personalized-learning prototype using generative AI and an interface for learners.) Tj ET
+0.13 0.2 0.18 rg BT /F2 10 Tf 40 368 Td (StadiumFlow) Tj ET
+0.32 0.46 0.40 rg BT /F1 8 Tf 412 368 Td (DESIGNED  /  MAR 2025) Tj ET
+0.13 0.2 0.18 rg BT /F1 9 Tf 40 352 Td (A ticket-linked stadium navigation and services application design.) Tj ET
+0.13 0.2 0.18 rg BT /F2 10 Tf 40 332 Td (Automated Tractor Prototype) Tj ET
+0.13 0.2 0.18 rg BT /F1 9 Tf 40 316 Td (Built for the college Project Expo; his first hardware project.) Tj ET
+0.77 0.82 0.77 rg 40 301 515 0.7 re f
+0.13 0.42 0.32 rg BT /F2 9 Tf 40 285 Td (EDUCATION & SKILLS) Tj ET
+0.13 0.2 0.18 rg BT /F2 10 Tf 40 262 Td (B.Tech, Computer Science & Engineering) Tj ET
+0.13 0.2 0.18 rg BT /F1 9 Tf 40 246 Td (Symbiosis Institute of Technology, Hyderabad  /  2025-2029) Tj ET
+0.13 0.2 0.18 rg BT /F1 9 Tf 40 223 Td (Python, C++, C, JavaScript  /  Generative AI, LLMs, agents, prompt engineering) Tj ET
+0.13 0.2 0.18 rg BT /F1 9 Tf 40 208 Td (Model evaluation, output validation, Pandas, NumPy, SQL fundamentals) Tj ET
+0.13 0.2 0.18 rg BT /F1 9 Tf 40 193 Td (React, Node.js, REST APIs, Git, GitHub, Docker, Google AI Studio, Postman, n8n) Tj ET
+0.77 0.82 0.77 rg 40 179 515 0.7 re f
+0.13 0.42 0.32 rg BT /F2 9 Tf 40 163 Td (ACTIVITIES) Tj ET
+0.13 0.2 0.18 rg BT /F1 9 Tf 40 140 Td (Under 25 Summit volunteer: event coordination, participant and technical support.) Tj ET
+0.13 0.2 0.18 rg BT /F1 9 Tf 40 125 Td (Technical presentations and speaking; Smart India, Open AI Virtual and Algorand hackathons.) Tj ET
+0.77 0.82 0.77 rg 40 73 515 0.7 re f
+0.35 0.46 0.40 rg BT /F1 8 Tf 40 55 Td (Public resume. No private contact details or unverified outcome metrics included.) Tj ET
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000251 00000 n 
+0000000321 00000 n 
+0000000396 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+4373
+%%EOF
