@@ -238,6 +238,8 @@ export function EvaluationLab() {
         .eval-lab .top-meta { display: flex; align-items: center; gap: 25px; color: var(--muted); font: 10px 'DM Mono', monospace; letter-spacing: .1em; text-transform: uppercase; }
         .eval-lab .top-meta a { transition: color .18s; }
         .eval-lab .top-meta a:hover { color: var(--acid); }
+        .eval-lab .top-contact { display: inline-flex; align-items: center; min-height: 32px; padding: 0 12px; border: 1px solid var(--acid); color: var(--acid); font: 10px 'DM Mono', monospace; white-space: nowrap; transition: background .18s, color .18s; }
+        .eval-lab .top-contact:hover { background: var(--acid); color: var(--base); }
         .eval-lab .live-dot { width: 6px; height: 6px; display: inline-block; margin-right: 7px; border-radius: 50%; background: var(--acid); box-shadow: 0 0 0 4px rgba(201,243,106,.1); }
         .eval-lab .hero { position: relative; padding: 77px 0 68px; border-bottom: 1px solid var(--line); }
         .eval-lab .hero:before {
@@ -256,6 +258,8 @@ export function EvaluationLab() {
         .eval-lab .button:hover { transform: translateY(-2px); border-color: var(--acid); }
         .eval-lab .button.primary { color: var(--base); background: var(--acid); border-color: var(--acid); }
         .eval-lab .button.primary:hover { background: #d9ff86; }
+        .eval-lab .button.contact { border-color: var(--aqua); color: var(--aqua); }
+        .eval-lab .button.contact:hover { background: rgba(125,217,194,.1); }
         .eval-lab .link-arrow { color: var(--base); font-size: 16px; }
         .eval-lab .contact-links { display: flex; gap: 16px; margin-left: 6px; color: var(--muted); font: 11px 'DM Mono', monospace; }
         .eval-lab .contact-links a:hover { color: var(--acid); }
@@ -312,6 +316,8 @@ export function EvaluationLab() {
         .eval-lab .detail-block { padding-top: 14px; border-top: 1px solid var(--line); }
         .eval-lab .detail-block h4 { margin: 0 0 8px; color: var(--aqua); font: 9px 'DM Mono', monospace; letter-spacing: .13em; text-transform: uppercase; }
         .eval-lab .detail-block p { margin: 0; color: #b8c7bf; font-size: 11px; line-height: 1.65; }
+        .eval-lab .tool-row { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding-top: 13px; border-top: 1px solid var(--line); }
+        .eval-lab .tool-row > span { color: var(--aqua); font: 9px 'DM Mono', monospace; letter-spacing: .13em; }
         .eval-lab .tool-pills { display: flex; flex-wrap: wrap; gap: 5px; }
         .eval-lab .tool-pill { padding: 4px 7px; border: 1px solid var(--line); color: var(--muted); font: 9px 'DM Mono', monospace; }
         .eval-lab .skill-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
@@ -374,8 +380,8 @@ export function EvaluationLab() {
           .eval-lab .shell { width: calc(100% - 32px); }
           .eval-lab .topbar { min-height: 57px; padding: 0 16px; }
           .eval-lab .wordmark { font-size: 12px; }
-          .eval-lab .top-meta { font-size: 8px; gap: 0; }
-          .eval-lab .top-meta a { display: none; }
+          .eval-lab .top-meta { display: none; }
+          .eval-lab .top-contact { min-height: 30px; padding: 0 8px; font-size: 9px; }
           .eval-lab .hero { padding: 43px 0 38px; }
           .eval-lab h1 { font-size: clamp(43px, 13vw, 59px); }
           .eval-lab .intro { font-size: 14px; }
@@ -392,6 +398,7 @@ export function EvaluationLab() {
           .eval-lab .state { grid-column: 2; grid-row: 2; width: max-content; font-size: 8px; }
           .eval-lab .chevron { grid-column: 3; grid-row: 1; }
           .eval-lab .project-detail { grid-template-columns: 1fr; gap: 12px; padding: 0 14px 17px; }
+          .eval-lab .tool-row { grid-column: auto; }
           .eval-lab .skill-grid { grid-template-columns: 1fr; }
           .eval-lab .skill-group, .eval-lab .skill-group:nth-child(2), .eval-lab .skill-group:nth-child(5) { grid-column: auto; min-height: auto; }
           .eval-lab .other-grid { grid-template-columns: 1fr; }
@@ -412,6 +419,7 @@ export function EvaluationLab() {
           <a href="#skills">Capabilities</a>
           <a href="#ambassador">Ask the profile</a>
         </nav>
+        <a className="top-contact" href="https://www.linkedin.com/in/vivekananda-cherukupally-396731379" target="_blank" rel="noreferrer">Contact on LinkedIn ↗</a>
       </header>
 
       <main id="top">
@@ -425,9 +433,9 @@ export function EvaluationLab() {
               </p>
               <div className="hero-actions">
                 <a className="button primary" href="#evidence">Inspect project evidence <span className="link-arrow">↘</span></a>
+                <a className="button contact" href="https://www.linkedin.com/in/vivekananda-cherukupally-396731379" target="_blank" rel="noreferrer">Contact on LinkedIn ↗</a>
                 <button className="button" type="button" onClick={() => setResumeNotice(true)}>Resume package <span aria-hidden="true">↓</span></button>
                 <div className="contact-links">
-                  <a href="https://www.linkedin.com/in/vivekananda-cherukupally-396731379" target="_blank" rel="noreferrer">LinkedIn ↗</a>
                   <a href="https://github.com/cherukupallyvivekananda76-oss" target="_blank" rel="noreferrer">GitHub ↗</a>
                 </div>
                 {resumeNotice && <div className="resume-note" role="status">A sanitized downloadable resume is planned for the finished site.</div>}
@@ -507,9 +515,8 @@ export function EvaluationLab() {
                       <div className="project-detail">
                         <div className="detail-block"><h4>Problem space</h4><p>{project.brief}</p></div>
                         <div className="detail-block"><h4>Contribution</h4><p>{project.contribution}</p></div>
-                        <div className="detail-block"><h4>Evidence / tools</h4><p>{project.evidence}</p>
-                          {project.tools.length > 0 && <div className="tool-pills" style={{ marginTop: 10 }}>{project.tools.map((tool) => <span className="tool-pill" key={tool}>{tool}</span>)}</div>}
-                        </div>
+                        <div className="detail-block"><h4>Verified outcome</h4><p>{project.evidence}</p></div>
+                        {project.tools.length > 0 && <div className="tool-row"><span>TOOLS /</span><div className="tool-pills">{project.tools.map((tool) => <span className="tool-pill" key={tool}>{tool}</span>)}</div></div>}
                       </div>
                     )}
                   </article>
