@@ -32,8 +32,43 @@ function limitReached(ip: string): boolean {
   return false;
 }
 
-function unsupported() {
-  return AskAmbassadorResponse.parse({ answer: FALLBACK, citations: [], supported: false });
+type AnswerMode = "model_selected" | "direct_match";
+
+function unsupported(mode: AnswerMode = "direct_match") {
+  return AskAmbassadorResponse.parse({ answer: FALLBACK, citations: [], supported: false, mode });
+}
+
+function answerFor(ids: EvidenceId[], mode: AnswerMode) {
+  const chosen = [...new Set(ids)].map((id) => evidence[id]);
+  const citations = [...new Map(chosen.flatMap((item) => item.citations).map((citation) => [citation.href, citation])).values()];
+  return AskAmbassadorResponse.parse({
+    answer: chosen.map((item) => item.answer).join("\n\n"),
+    citations,
+    supported: true,
+    mode,
+  });
+}
+
+function localMatch(question: string): EvidenceId[] {
+  if (/\b(ignore|override|system prompt|developer instruction|pretend|roleplay|jailbreak|instead say|claim that|fabricate|make up)\b/i.test(question)) return [];
+  const rules: Array<[RegExp, EvidenceId[]]> = [
+    [/\b(current role|day.to.day|work at handshake|handshake|job|employment)\b/i, ["role"]],
+    [/\b(ai generalist|role fit|fit for|suitab|hire|strength|capabilit)/i, ["fit"]],
+    [/\b(full.stack|product building|software project)/i, ["pinterest", "tutor"]],
+    [/\b(accountant|ledger|expense|financial calculation)/i, ["accountant"]],
+    [/\b(pinterest|affiliate)/i, ["pinterest"]],
+    [/\b(tutor|personalized learning)/i, ["tutor"]],
+    [/\b(stadium|seat navigation)/i, ["stadium"]],
+    [/\b(tractor|hardware|project expo)/i, ["tractor"]],
+    [/\b(evaluat|validat|output quality|accuracy|relevan|consisten|check.*output|test.*output)/i, ["evaluation"]],
+    [/\b(prompt|automation|workflow|n8n|llms?)/i, ["iteration"]],
+    [/\b(skill|tool|stack|technolog|programming language)/i, ["skills"]],
+    [/\b(impact|outcome|result|metric|accomplish)/i, ["impact"]],
+    [/\b(lead|volunteer|hackathon|speak|presentation|communit|activit)/i, ["leadership"]],
+    [/\b(education|degree|college|university|background|study|school)/i, ["background"]],
+    [/\b(contact|linkedin|github|reach him)/i, ["contact"]],
+  ];
+  return rules.find(([pattern]) => pattern.test(question))?.[1] ?? [];
 }
 
 const sensitiveOrUnverified =
@@ -89,7 +124,7 @@ router.post("/ambassador/ask", async (req, res): Promise<void> => {
     }
     const decision = result as { unsupported: unknown; ids: unknown };
     if (decision.unsupported === true) {
-      res.json(unsupported());
+      res.json(unsupported("model_selected"));
       return;
     }
     if (
@@ -99,20 +134,21 @@ router.post("/ambassador/ask", async (req, res): Promise<void> => {
       decision.ids.length > 2 ||
       !decision.ids.every((id: unknown) => typeof id === "string" && evidenceIds.includes(id as EvidenceId))
     ) {
-      res.json(unsupported());
+      res.json(unsupported("model_selected"));
       return;
     }
 
-    const chosen = [...new Set(decision.ids as EvidenceId[])].map((id) => evidence[id]);
-    const citations = [...new Map(chosen.flatMap((item) => item.citations).map((citation) => [citation.href, citation])).values()];
-    res.json(AskAmbassadorResponse.parse({
-      answer: chosen.map((item) => item.answer).join("\n\n"),
-      citations,
-      supported: true,
-    }));
-  } catch {
-    // No question or model error details are ever written to logs.
-    req.log.warn("Portfolio guide classification unavailable");
+    res.json(answerFor(decision.ids as EvidenceId[], "model_selected"));
+  } catch (error) {
+    // Log only a safe category/status, never question text or provider error messages.
+    const category = error instanceof OpenAI.APIError ? "provider" : "classification";
+    const status = error instanceof OpenAI.APIError ? error.status : undefined;
+    req.log.warn({ category, status }, "Portfolio guide classification unavailable");
+    if (status === 429 || (status !== undefined && status >= 500)) {
+      const matched = localMatch(question);
+      res.json(matched.length ? answerFor(matched, "direct_match") : unsupported("direct_match"));
+      return;
+    }
     res.status(503).json({ error: "The portfolio guide is temporarily unavailable." });
   }
 });

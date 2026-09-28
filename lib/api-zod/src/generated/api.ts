@@ -35,7 +35,8 @@ export const AskAmbassadorResponse = zod.object({
   "label": zod.string(),
   "href": zod.string()
 })),
-  "supported": zod.boolean()
+  "supported": zod.boolean(),
+  "mode": zod.enum(['model_selected', 'direct_match'])
 })
 
 

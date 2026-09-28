@@ -87,5 +87,8 @@ components:
             $ref: "#/components/schemas/AmbassadorCitation"
         supported:
           type: boolean
-      required: [answer, citations, supported]
+        mode:
+          type: string
+          enum: [model_selected, direct_match]
+      required: [answer, citations, supported, mode]
 

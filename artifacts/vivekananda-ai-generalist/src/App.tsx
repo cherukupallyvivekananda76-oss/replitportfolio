@@ -141,7 +141,7 @@ function Ambassador() {
       <div className="chat" aria-label="Profile ambassador">
         <div className="chat-head">
           <span>PROFILE QUERY / VIVEKANANDA</span>
-          <span className="chat-state"><i className="live-dot" /> {ambassador.isPending ? 'SEARCHING SOURCES' : 'SOURCE-GROUNDED'}</span>
+          <span className="chat-state"><i className="live-dot" /> {ambassador.isPending ? 'SEARCHING SOURCES' : response?.mode === 'direct_match' ? 'VERIFIED MATCH' : 'SOURCE-GROUNDED'}</span>
         </div>
         <div className="chat-body" aria-live="polite">
           {ambassador.isPending ? (
@@ -149,6 +149,7 @@ function Ambassador() {
           ) : response ? (
             <div ref={answerRef} tabIndex={-1} aria-label="Ambassador answer">
               <p className={`chat-answer ${response.supported ? '' : 'unsupported'}`}>{response.answer}</p>
+              {response.mode === 'direct_match' && <p className="chat-intro">Model selection is limited right now. This answer was matched directly to approved profile facts.</p>}
               {!response.supported && <p className="chat-intro">The public profile does not provide enough evidence to support that claim.</p>}
               {response.citations.length > 0 && (
                 <div className="source-links" aria-label="Answer sources">

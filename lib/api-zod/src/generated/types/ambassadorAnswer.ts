@@ -5,10 +5,12 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+import type { AmbassadorAnswerMode } from './ambassadorAnswerMode';
 import type { AmbassadorCitation } from './ambassadorCitation';
 
 export interface AmbassadorAnswer {
   answer: string;
   citations: AmbassadorCitation[];
   supported: boolean;
+  mode: AmbassadorAnswerMode;
 }

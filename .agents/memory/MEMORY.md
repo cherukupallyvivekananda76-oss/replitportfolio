@@ -1,1 +1,2 @@
 - [AI Generalist portfolio direction](ai-generalist-direction.md) — Use the refined evaluation-lab direction for the public site; the editorial concept remains an alternative.
+- [Ambassador grounding boundary](ambassador-grounding.md) — The model selects evidence topics, not factual prose; label direct matching when model access is limited.

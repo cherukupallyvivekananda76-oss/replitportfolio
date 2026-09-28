@@ -22,9 +22,18 @@ export interface AmbassadorCitation {
   href: string;
 }
 
+export type AmbassadorAnswerMode = typeof AmbassadorAnswerMode[keyof typeof AmbassadorAnswerMode];
+
+
+export const AmbassadorAnswerMode = {
+  model_selected: 'model_selected',
+  direct_match: 'direct_match',
+} as const;
+
 export interface AmbassadorAnswer {
   answer: string;
   citations: AmbassadorCitation[];
   supported: boolean;
+  mode: AmbassadorAnswerMode;
 }
 

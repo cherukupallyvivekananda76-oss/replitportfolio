@@ -7,6 +7,7 @@
  */
 
 export * from './ambassadorAnswer';
+export * from './ambassadorAnswerMode';
 export * from './ambassadorCitation';
 export * from './ambassadorQuestion';
 export * from './healthStatus';
