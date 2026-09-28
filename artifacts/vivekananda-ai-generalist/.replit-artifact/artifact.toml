@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Vivekananda | AI Generalist"
+description = "A recruiter-ready AI Generalist portfolio grounded in verified resume evidence, with a source-aware virtual ambassador and public-safe resume download."
+version = "1.0.0"
+id = "artifacts/vivekananda-ai-generalist"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25440
+
+[services.development]
+run = "pnpm --filter @workspace/vivekananda-ai-generalist run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/vivekananda-ai-generalist", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/vivekananda-ai-generalist/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25440"
+BASE_PATH = "/"
