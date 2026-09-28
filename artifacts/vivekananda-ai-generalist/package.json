@@ -7,6 +7,7 @@
     "dev": "vite --config vite.config.ts --host 0.0.0.0",
     "build": "node scripts/generate-public-resume.mjs && vite build --config vite.config.ts && node scripts/check-public-release.mjs",
     "check:release": "node scripts/check-public-release.mjs",
+    "test:release": "node --test scripts/check-public-release.test.mjs",
     "serve": "vite preview --config vite.config.ts --host 0.0.0.0",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
