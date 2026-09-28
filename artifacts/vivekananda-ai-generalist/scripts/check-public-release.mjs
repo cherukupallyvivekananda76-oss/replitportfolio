@@ -2,6 +2,7 @@ import {
   readFileSync,
   readdirSync,
 } from "node:fs";
+import { spawnSync } from "node:child_process";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -17,6 +18,17 @@ const textExtensions = new Set([
   ".txt",
   ".webmanifest",
   ".xml",
+]);
+const rasterImageExtensions = new Set([
+  ".avif",
+  ".bmp",
+  ".gif",
+  ".jpg",
+  ".jpeg",
+  ".png",
+  ".tif",
+  ".tiff",
+  ".webp",
 ]);
 
 const privateContactPatterns = [
@@ -112,7 +124,8 @@ export function checkPublicRelease(root = defaultProjectRoot) {
     return strings.join("\n");
   }
 
-  function findContactPattern(text, { allowUnformattedPhone = true } = {}) {
+  function findContactPatterns(text, { allowUnformattedPhone = true } = {}) {
+    const matches = [];
     for (const pattern of privateContactPatterns) {
       const match = pattern.expression.exec(text);
       if (!match) continue;
@@ -128,9 +141,13 @@ export function checkPublicRelease(root = defaultProjectRoot) {
         if (!isFormatted && !hasPhoneLabel) continue;
       }
 
-      return pattern;
+      matches.push(pattern);
     }
-    return undefined;
+    return matches;
+  }
+
+  function findContactPattern(text, options) {
+    return findContactPatterns(text, options)[0];
   }
 
   function javascriptStringLiterals(source) {
@@ -150,6 +167,7 @@ export function checkPublicRelease(root = defaultProjectRoot) {
     if (!textExtensions.has(extension)) return;
 
     const source = content.toString("utf8");
+    scanInlineRasterImages(path, source);
     const scanUnits = extension === ".js" ? javascriptStringLiterals(source) : [source];
     for (const unit of scanUnits) {
       const match = findContactPattern(unit, {
@@ -161,6 +179,80 @@ export function checkPublicRelease(root = defaultProjectRoot) {
         );
         return;
       }
+    }
+  }
+
+  function scanRasterImage(path) {
+    const extension = path.slice(path.lastIndexOf(".")).toLowerCase();
+    if (!rasterImageExtensions.has(extension)) return;
+
+    inspectRasterImage(path);
+  }
+
+  function scanInlineRasterImages(path, source) {
+    const inlineImage =
+      /data:image\/(?:avif|bmp|gif|jpe?g|png|tiff?|webp);base64,([A-Z0-9+/=\s]+)/giu;
+    for (const match of source.matchAll(inlineImage)) {
+      const bytes = Buffer.from(match[1].replace(/\s/gu, ""), "base64");
+      inspectRasterImage(path, bytes);
+    }
+  }
+
+  function inspectRasterImage(path, input) {
+    const assetPath = relative(projectRoot, path);
+    const label = input ? `${assetPath} (embedded raster image)` : assetPath;
+    const normalized = spawnSync(
+      "magick",
+      [
+        input ? "-" : path,
+        "-background",
+        "white",
+        "-alpha",
+        "remove",
+        "-depth",
+        "8",
+        "-strip",
+        "tiff:-",
+      ],
+      {
+        input,
+        maxBuffer: 64 * 1024 * 1024,
+        timeout: 60_000,
+      },
+    );
+    if (
+      normalized.error ||
+      normalized.status !== 0 ||
+      !Buffer.isBuffer(normalized.stdout) ||
+      normalized.stdout.length === 0
+    ) {
+      fail(
+        `${label} could not be inspected for private contact patterns (OCR failed); release is blocked.`,
+      );
+      return;
+    }
+
+    const result = spawnSync(
+      "tesseract",
+      ["stdin", "stdout", "-l", "eng", "--psm", "6"],
+      {
+        encoding: "utf8",
+        input: normalized.stdout,
+        maxBuffer: 8 * 1024 * 1024,
+        timeout: 60_000,
+      },
+    );
+    if (result.error || result.status !== 0 || typeof result.stdout !== "string") {
+      fail(
+        `${label} could not be inspected for private contact patterns (OCR failed); release is blocked.`,
+      );
+      return;
+    }
+
+    for (const pattern of findContactPatterns(result.stdout)) {
+      fail(
+        `${label} contains a private-contact pattern (${pattern.name}).`,
+      );
     }
   }
 
@@ -188,7 +280,10 @@ export function checkPublicRelease(root = defaultProjectRoot) {
   }
 
   for (const path of listFiles(distDir)) {
-    if (path !== builtPdf) scanTextFile(path);
+    if (path !== builtPdf) {
+      scanTextFile(path);
+      scanRasterImage(path);
+    }
   }
 
   return errors;
@@ -215,7 +310,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
       process.exitCode = 1;
     } else {
       console.log(
-        "Public release check passed: built site and extracted resume text contain no private contact patterns; no extra PDFs are present.",
+        "Public release check passed: built text, raster-image OCR, and extracted resume text contain no private contact patterns; no extra PDFs are present.",
       );
     }
   }
